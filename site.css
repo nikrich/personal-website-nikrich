@@ -131,6 +131,24 @@ body.no-shapes .jr-contact__shapes { display: none !important; }
 }
 .jr-annot { display: flex; align-items: center; gap: 8px; }
 .jr-annot img { width: 50px; opacity: 0.6; }
+/* =========================================
+   Scroll reveal animations
+   ========================================= */
+.jr-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.jr-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .jr-reveal { opacity: 1; transform: none; transition: none; }
+}
+
 body.is-dark .jr-annot img { filter: invert(1) brightness(1.6); }
 body.is-dark img[src*="-outline"],
 body.is-dark .jr-folder-cta__folder img { filter: invert(1) brightness(0.92); }
@@ -310,6 +328,9 @@ body.is-dark .jr-folder-cta__folder img { filter: invert(1) brightness(0.92); }
   aspect-ratio: 4 / 5; border-radius: 24px;
   display: flex; align-items: flex-end; padding: 18px;
   position: relative; overflow: hidden;
+  width: 100%; max-width: 360px;
+  align-self: flex-start;
+  margin-bottom: 8px;
 }
 .jr-about__portrait::after {
   content: ''; position: absolute; inset: 0;
