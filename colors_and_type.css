@@ -1,0 +1,252 @@
+/* =============================================================
+   Jannik Richter Design System — Foundations
+   colors_and_type.css
+   ============================================================= */
+
+/* ---------- Fonts ---------- */
+/* Display: Funnel Display (heavy geometric grotesque — Juan Mora vibe) */
+/* Body:    Inter Tight (neutral grotesque) */
+/* Serif:   Instrument Serif italic (handwritten-label feel) */
+/* Mono:    JetBrains Mono (for the rare code/tag) */
+
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700;800;900&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ============================================================
+     COLORS
+     ============================================================ */
+
+  /* Brand canvas — the warm off-white paper */
+  --paper:        #F1ECE2;   /* primary background */
+  --paper-warm:   #EAE2D2;   /* slightly deeper, for sections */
+  --paper-cool:   #F7F4EE;   /* lifted, for cards on paper */
+
+  /* Ink — never pure black */
+  --ink:          #1A1814;
+  --ink-soft:     #2A2620;
+  --ink-mute:     #6B645A;   /* secondary text */
+  --ink-faint:    #9C9588;   /* tertiary, hairline borders */
+
+  /* Accent — electric blue */
+  --accent:       #1F4BFF;
+  --accent-deep:  #0F33D6;
+  --accent-soft:  #C9D3FF;   /* for shape fills if needed */
+
+  /* Inverse (when a section flips dark) */
+  --ink-fill:     #1A1814;   /* the dark fill */
+  --paper-fill:   #F1ECE2;   /* type-on-dark */
+
+  /* Semantic */
+  --fg-1:         var(--ink);
+  --fg-2:         var(--ink-soft);
+  --fg-3:         var(--ink-mute);
+  --fg-4:         var(--ink-faint);
+
+  --bg-1:         var(--paper);
+  --bg-2:         var(--paper-cool);
+  --bg-3:         var(--paper-warm);
+
+  --border:       var(--ink);
+  --border-soft:  rgba(26, 24, 20, 0.18);
+  --border-hair:  rgba(26, 24, 20, 0.10);
+
+  --link:         var(--ink);
+  --link-hover:   rgba(26, 24, 20, 0.55);
+
+  /* ============================================================
+     TYPE — families
+     ============================================================ */
+  --font-display: "Funnel Display", "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+  --font-body:    "Inter Tight", "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --font-serif:   "Instrument Serif", "EB Garamond", Georgia, serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* ============================================================
+     TYPE — scale (fluid)
+     ============================================================ */
+  --fs-hero:      clamp(4rem, 18vw, 22rem);       /* "Juan / Mora" name-sized */
+  --fs-display:   clamp(2.75rem, 7.5vw, 7rem);    /* H1 — section headlines */
+  --fs-h1:        clamp(2.25rem, 5vw, 4.5rem);
+  --fs-h2:        clamp(1.75rem, 3.4vw, 3rem);
+  --fs-h3:        clamp(1.25rem, 1.8vw, 1.75rem);
+  --fs-h4:        1.125rem;
+  --fs-body:      1.0625rem;     /* 17px */
+  --fs-body-lg:   1.25rem;       /* 20px */
+  --fs-small:     0.875rem;      /* 14px */
+  --fs-eyebrow:   0.8125rem;     /* 13px, all caps */
+  --fs-label:     1rem;          /* italic serif "copy" labels */
+
+  --lh-tight:     0.92;
+  --lh-snug:      1.05;
+  --lh-body:      1.55;
+  --lh-loose:     1.7;
+
+  --tracking-tight:   -0.025em;
+  --tracking-display: -0.035em;
+  --tracking-eyebrow: 0.08em;
+
+  /* ============================================================
+     SPACING (8pt-ish, slightly relaxed)
+     ============================================================ */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+  --space-11: 192px;
+  --space-12: 256px;
+
+  /* ============================================================
+     RADII
+     ============================================================ */
+  --r-chip:   12px;
+  --r-card:   24px;
+  --r-card-inner: 20px;
+  --r-pill:   999px;
+  --r-photo:  20px;
+
+  /* ============================================================
+     SHADOWS — sparing
+     ============================================================ */
+  --shadow-card-hover: 0 12px 32px -16px rgba(26, 24, 20, 0.18);
+  --shadow-folder:     0 18px 40px -22px rgba(26, 24, 20, 0.35);
+  --shadow-inset-soft: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:    cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   160ms;
+  --dur:        260ms;
+  --dur-slow:   480ms;
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  --max-w:      1440px;
+  --gutter:     clamp(20px, 4vw, 64px);
+  --nav-h:      72px;
+}
+
+/* =============================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================= */
+
+html, body {
+  background: var(--bg-1);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+.hero, .ds-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--fg-1);
+}
+
+h1, .ds-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+
+h2, .ds-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+h3, .ds-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+h4, .ds-h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p, .ds-p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg-2);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.ds-lead {
+  font-size: var(--fs-body-lg);
+  line-height: 1.5;
+  color: var(--fg-1);
+}
+
+.ds-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.ds-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-label);
+  color: var(--fg-3);
+  letter-spacing: -0.005em;
+}
+
+.ds-mono {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  letter-spacing: 0;
+}
+
+a, .ds-a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+a:hover { opacity: 0.55; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--paper-warm);
+  padding: 1px 6px;
+  border-radius: 6px;
+}

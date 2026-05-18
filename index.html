@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Jannik Richter — Senior Solutions Engineer · Cape Town</title>
+  <meta name="description" content="Jannik Richter — Senior Solutions Engineer at Sanlam Fintech. Distributed systems, multi-agent orchestration, full-stack engineering, open source. Based in Cape Town."/>
+  <meta name="author" content="Jannik Richter"/>
+  <link rel="icon" type="image/svg+xml" href="assets/logo/monogram.svg"/>
+  <meta property="og:title" content="Jannik Richter — Software Architect"/>
+  <meta property="og:description" content="Distributed systems, multi-agent orchestration, full-stack engineering, open source. Cape Town."/>
+  <meta property="og:type" content="website"/>
+  <link rel="stylesheet" href="site.css"/>
+</head>
+<body data-screen-label="Jannik Richter — Personal Site">
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+
+  <script type="text/babel" src="js/Nav.jsx"></script>
+  <script type="text/babel" src="js/Hero.jsx"></script>
+  <script type="text/babel" src="js/Services.jsx"></script>
+  <script type="text/babel" src="js/FolderCTA.jsx"></script>
+  <script type="text/babel" src="js/WorkGrid.jsx"></script>
+  <script type="text/babel" src="js/About.jsx"></script>
+  <script type="text/babel" src="js/Checklist.jsx"></script>
+  <script type="text/babel" src="js/Now.jsx"></script>
+  <script type="text/babel" src="js/Channel.jsx"></script>
+  <script type="text/babel" src="js/Writing.jsx"></script>
+  <script type="text/babel" src="js/Experience.jsx"></script>
+  <script type="text/babel" src="js/Testimonials.jsx"></script>
+  <script type="text/babel" src="js/Contact.jsx"></script>
+  <script type="text/babel" src="js/Footer.jsx"></script>
+
+  <script type="text/babel">
+    function App() {
+      return (
+        <React.Fragment>
+          <Nav/>
+          <Hero/>
+          <Services/>
+          <FolderCTA/>
+          <WorkGrid/>
+          <About/>
+          <Checklist/>
+          <Now/>
+          <Channel/>
+          <Writing/>
+          <Experience/>
+          <Testimonials/>
+          <Contact/>
+          <Footer/>
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

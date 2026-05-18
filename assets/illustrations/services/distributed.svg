@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none" aria-hidden="true">
+  <g stroke="rgba(241, 236, 226, 0.35)" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M 200 270 Q 280 210 380 165"/>
+    <path d="M 380 165 Q 470 175 540 220"/>
+    <path d="M 540 220 Q 590 290 670 360"/>
+    <path d="M 200 270 Q 260 320 360 380"/>
+    <path d="M 360 380 Q 460 340 540 220"/>
+    <path d="M 200 270 Q 150 200 140 130"/>
+    <path d="M 140 130 Q 250 100 380 165"/>
+  </g>
+  <polygon points="200,200 260.6,235 260.6,305 200,340 139.4,305 139.4,235"
+           fill="rgba(241, 236, 226, 0.12)" stroke="rgba(241, 236, 226, 0.92)" stroke-width="2.5" stroke-linejoin="round"/>
+  <polygon points="140,102 164.2,116 164.2,144 140,158 115.8,144 115.8,116"
+           fill="none" stroke="rgba(241, 236, 226, 0.85)" stroke-width="2.5" stroke-linejoin="round"/>
+  <polygon points="380,133 407.7,149 407.7,181 380,197 352.3,181 352.3,149"
+           fill="none" stroke="rgba(241, 236, 226, 0.85)" stroke-width="2.5" stroke-linejoin="round"/>
+  <polygon points="540,180 574.6,200 574.6,240 540,260 505.4,240 505.4,200" fill="#C9D3FF"/>
+  <polygon points="670,332 694.2,346 694.2,374 670,388 645.8,374 645.8,346"
+           fill="none" stroke="rgba(241, 236, 226, 0.85)" stroke-width="2.5" stroke-linejoin="round"/>
+  <polygon points="360,344 391.2,362 391.2,398 360,416 328.8,398 328.8,362"
+           fill="rgba(241, 236, 226, 0.12)" stroke="rgba(241, 236, 226, 0.85)" stroke-width="2.5" stroke-linejoin="round"/>
+</svg>
