@@ -132,6 +132,7 @@ body.no-shapes .jr-contact__shapes { display: none !important; }
 .jr-annot { display: flex; align-items: center; gap: 8px; }
 .jr-annot img { width: 50px; opacity: 0.6; }
 body.is-dark .jr-annot img { filter: invert(1) brightness(1.6); }
+body.is-dark img[src*="-outline"] { filter: invert(1) brightness(0.92); }
 
 .jr-hero__name {
   display: flex; flex-direction: column;
