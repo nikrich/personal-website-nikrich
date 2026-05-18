@@ -328,7 +328,7 @@ body.is-dark .jr-folder-cta__folder img { filter: invert(1) brightness(0.92); }
   aspect-ratio: 4 / 5; border-radius: 24px;
   position: relative; overflow: hidden;
   width: 100%; max-width: 420px;
-  align-self: flex-start;
+  align-self: center;
   margin-bottom: 8px;
 }
 .jr-about__portrait img {
