@@ -328,9 +328,10 @@ body.is-dark .jr-folder-cta__folder img { filter: invert(1) brightness(0.92); }
   aspect-ratio: 4 / 5; border-radius: 24px;
   display: flex; align-items: flex-end; padding: 18px;
   position: relative; overflow: hidden;
-  width: 100%; max-width: 360px;
+  width: 100%; max-width: 420px;
   align-self: flex-start;
   margin-bottom: 8px;
+  border: 1px solid var(--border-hair);
 }
 .jr-about__portrait::after {
   content: ''; position: absolute; inset: 0;
