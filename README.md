@@ -8,7 +8,9 @@ Node.js 20+ is sufficient. `npm run dev` serves http://localhost:4173. `npm test
 
 ## Cloudflare
 
-`npm run deploy` builds and deploys the static site with Wrangler to the `personal-website-nikrich` Cloudflare Worker. Requires authorized Cloudflare Workers access. No server, database, paid plugin source, credentials, or private game assets are deployed. Custom domains can be attached to this Worker separately.
+Production is **https://jannikrichter.com**, served by the existing `personal-website-nikrich` Cloudflare Pages project. It is connected to this GitHub repository: pushing `main` triggers a production deployment. Pages must use build command `npm run build` and output directory `dist`; publishing the repository root bypasses asset fingerprinting and serves the wrong release package. These settings were corrected and verified on September 11, 2026.
+
+`npm run deploy` updates the secondary Workers mirror at `https://personal-website-nikrich.nikrich.workers.dev`; it does not itself update the custom domain. No server, database, paid plugin source, credentials, or private game assets are deployed.
 
 Only `dist/` is public. The build includes custom response headers and a real 404 page. Old JSX sections remain in source as reference material and are excluded from deployment.
 
