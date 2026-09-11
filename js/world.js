@@ -1,5 +1,5 @@
 import {projects,timeline,otherProjects} from './content.js';
-import {start,move,nearest,stepToward,normalizeDiscoveries,projection} from './engine.js';
+import {start,move,nearest,stepToward,normalizeDiscoveries,projection,mapDestination} from './engine.js';
 const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const entrances=projects.map(p=>({...p,...p.entry}));
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -34,17 +34,30 @@ $('#motion').addEventListener('click',()=>{reduced=!reduced;motion();});
 const keyMap={ArrowUp:'up',w:'up',ArrowDown:'down',s:'down',ArrowLeft:'left',a:'left',ArrowRight:'right',d:'right'};
 scene.addEventListener('keydown',e=>{if(e.target!==scene)return;const k=keyMap[e.key]||keyMap[e.key.toLowerCase()];if(k){e.preventDefault();keys.add(k);destination=null;$('#arrival').hidden=true;}if(e.key.toLowerCase()==='e'){e.preventDefault();inspect();}});
 window.addEventListener('keyup',e=>keys.delete(keyMap[e.key]||keyMap[e.key.toLowerCase()]));window.addEventListener('blur',()=>keys.clear());scene.addEventListener('blur',()=>keys.clear());
-for(const b of all('[data-move]')){b.addEventListener('pointerdown',e=>{e.preventDefault();destination=null;keys.add(b.dataset.move);b.setPointerCapture(e.pointerId);$('#arrival').hidden=true;});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,()=>keys.delete(b.dataset.move));}
 function inspect(){const p=nearest(player,entrances);if(Math.hypot(player.x-p.x,player.y-p.y)<.12)openProject(p.id);else{announce(`Follow the signal to ${p.short}.`);travel(p.id);}}
-$('#touch-inspect').addEventListener('click',inspect);
+
+let mapGesture=null;
+scene.addEventListener('pointerdown',e=>{if(e.isPrimary&&e.button===0&&!e.target.closest('button'))mapGesture={id:e.pointerId,x:e.clientX,y:e.clientY,scroll:window.scrollY,dragged:false};});
+scene.addEventListener('pointermove',e=>{if(mapGesture?.id===e.pointerId&&Math.hypot(e.clientX-mapGesture.x,e.clientY-mapGesture.y)>10)mapGesture.dragged=true;});
+scene.addEventListener('pointercancel',()=>{if(mapGesture)mapGesture.dragged=true;});
+scene.addEventListener('click',e=>{
+ if(e.target.closest('button')||e.button!==0||e.detail===0)return;
+ const gesture=mapGesture;mapGesture=null;
+ if(gesture&&(gesture.dragged||Math.abs(window.scrollY-gesture.scroll)>10))return;
+ const bounds=scene.getBoundingClientRect();
+ const target=mapDestination(e.clientX-bounds.left-scene.clientLeft,e.clientY-bounds.top-scene.clientTop,view);
+ $('#arrival').hidden=true;keys.clear();scene.focus({preventScroll:true});
+ if(reduced){player=target;destination=null;announce('Arrived at the selected spot.');render(0);}
+ else{destination=target;announce('Walking to the selected spot.');}
+});
 let w=0,h=0,view;
 function resize(){w=scene.clientWidth;h=scene.clientHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=w*dpr;canvas.height=h*dpr;ctx?.setTransform(dpr,0,0,dpr,0,0);view=projection(w,h);all('.beacon').forEach(b=>{const p=projects.find(p=>p.id===b.dataset.project);b.style.left=`${view.x+p.x*view.width}px`;b.style.top=`${view.y+p.y*view.height}px`;});render(0);}
 new ResizeObserver(resize).observe(scene);
 function point(p){return {x:view.x+p.x*view.width,y:view.y+p.y*view.height};}
-function render(time){if(!ctx||!view)return;ctx.clearRect(0,0,w,h);const pos=point(player),pulse=reduced?1:1+Math.sin(time*.003)*.13;const near=nearest(player,entrances);if(destination){const t=point(destination);ctx.beginPath();ctx.moveTo(pos.x,pos.y);ctx.lineTo(t.x,t.y+4);ctx.setLineDash([3,8]);ctx.strokeStyle='#c2efd970';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);}
+function render(time){if(!ctx||!view)return;ctx.clearRect(0,0,w,h);const pos=point(player),pulse=reduced?1:1+Math.sin(time*.003)*.13;const near=nearest(player,entrances);if(destination){const t=point(destination);ctx.beginPath();ctx.moveTo(pos.x,pos.y);ctx.lineTo(t.x,t.y);ctx.setLineDash([3,8]);ctx.strokeStyle='#c2efd970';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);ctx.beginPath();ctx.ellipse(t.x,t.y,10,6,0,0,Math.PI*2);ctx.strokeStyle='#bbefd8';ctx.stroke();}
 // A luminous player marker, designed as game UI rather than an illustrated character.
 ctx.save();ctx.translate(pos.x,pos.y);ctx.scale(1,.55);ctx.beginPath();ctx.arc(0,0,16*pulse,0,Math.PI*2);ctx.fillStyle='#bbefd815';ctx.fill();ctx.strokeStyle='#bbefd870';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();ctx.shadowColor='#bbefd8';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(pos.x,pos.y-10,5,0,Math.PI*2);ctx.fillStyle='#dcffed';ctx.fill();ctx.shadowBlur=0;ctx.beginPath();ctx.moveTo(pos.x,pos.y-3);ctx.lineTo(pos.x-4,pos.y+3);ctx.lineTo(pos.x+4,pos.y+3);ctx.closePath();ctx.fillStyle='#bbefd8';ctx.fill();ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f3fff8';ctx.fillText('YOU',pos.x,pos.y+24);
-if(!destination&&Math.hypot(player.x-near.x,player.y-near.y)<.1&&!dialog.open){ctx.fillStyle='#0b1721ed';ctx.fillRect(pos.x-55,pos.y+31,110,23);ctx.fillStyle='#c6eddb';ctx.font='11px sans-serif';ctx.fillText('E · '+near.short,pos.x,pos.y+47);}}
-function tick(time){const dt=Math.min((time-last)/1000||0,.035);last=time;if(visible&&!dialog.open){if(destination){const r=stepToward(player,destination,dt*.25);player=r.point;if(r.arrived){const id=destination.id;destination=null;openProject(id);}}else if(keys.size){let dx=Number(keys.has('right'))-Number(keys.has('left')),dy=Number(keys.has('down'))-Number(keys.has('up'));const norm=Math.hypot(dx,dy)||1;player=move(player,dx/norm*dt*.22,dy/norm*dt*.22);}render(time);}frame=requestAnimationFrame(tick);}
+if(!destination&&Math.hypot(player.x-near.x,player.y-near.y)<.1&&!dialog.open){ctx.fillStyle='#0b1721ed';ctx.fillRect(pos.x-55,pos.y+31,110,23);ctx.fillStyle='#c6eddb';ctx.font='11px sans-serif';ctx.fillText((matchMedia('(pointer:coarse)').matches?'Tap ':'E · ')+near.short,pos.x,pos.y+47);}}
+function tick(time){const dt=Math.min((time-last)/1000||0,.035);last=time;if(visible&&!dialog.open){if(destination){const r=stepToward(player,destination,dt*.25);player=r.point;if(r.arrived){const id=destination.id;destination=null;if(id)openProject(id);else announce('Arrived at the selected spot.');}}else if(keys.size){let dx=Number(keys.has('right'))-Number(keys.has('left')),dy=Number(keys.has('down'))-Number(keys.has('up'));const norm=Math.hypot(dx,dy)||1;player=move(player,dx/norm*dt*.22,dy/norm*dt*.22);}render(time);}frame=requestAnimationFrame(tick);}
 document.addEventListener('visibilitychange',()=>{visible=!document.hidden;keys.clear();if(visible){last=performance.now();if(!frame)frame=requestAnimationFrame(tick);}else{cancelAnimationFrame(frame);frame=0;}});
 renderCards();progress();motion();resize();frame=requestAnimationFrame(tick);

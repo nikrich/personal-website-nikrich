@@ -17,7 +17,7 @@ Only `dist/` is public. The build includes custom response headers and a real 40
 ## Editing
 
 - `js/content.js`: project descriptions, links, availability, timeline, and map destinations.
-- `js/world.js`: interface, modal details, discovery state, keyboard/touch controls, and a small original dialogue vignette.
+- `js/world.js`: interface, modal details, discovery state, keyboard and tap-to-move controls, and a small original dialogue vignette.
 - `js/engine.js`: pure movement, boundary, and coordinate-projection logic.
 - `world.css`: responsive design and motion preferences.
 - `index.html`: semantic shell, metadata, and no-JavaScript fallback.
@@ -31,3 +31,5 @@ Personal biography, professional history, testimonials, and contact details come
 The district backdrop is original AI-generated portfolio artwork; it is not footage of The Club. Product covers are the existing Hungry Ghost product assets. Conduit and GeoScape tiles use technical diagrams, not product screenshots. The Club dialogue vignette is original website writing inspired by the documented premise, clearly labelled in the interface.
 
 Production builds fingerprint the stylesheet and every JavaScript module, including module imports. This prevents the custom domain’s browser cache lifetime from retaining stale layouts after deployment. Mobile card media uses a consistent aspect ratio with automatic height; cards also use a minimum readable width before adding columns.
+
+Tap or click the district to move to a point. Out-of-bounds taps resolve to the nearest walkable edge. Scrolling across the map does not trigger movement. Project markers and the mobile project index still walk to a project and open its details. No directional controls are shown on phones.

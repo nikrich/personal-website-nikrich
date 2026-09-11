@@ -8,7 +8,7 @@ test('portfolio supports project discovery, dialogue, navigation and reduced-mot
  window.document.write(await readFile('index.html','utf8'));
  for(const name of ['window','document','localStorage','ResizeObserver'])globalThis[name]=window[name];
  globalThis.matchMedia=()=>({matches:true});globalThis.devicePixelRatio=1;
- globalThis.requestAnimationFrame=()=>1;globalThis.cancelAnimationFrame=()=>{};
+ let nextFrame;globalThis.requestAnimationFrame=callback=>{nextFrame=callback;return 1;};globalThis.cancelAnimationFrame=()=>{};
  globalThis.addEventListener=window.addEventListener.bind(window);
  const scene=document.querySelector('#scene');
  Object.defineProperty(scene,'clientWidth',{value:850});Object.defineProperty(scene,'clientHeight',{value:586});scene.scrollIntoView=()=>{};
@@ -29,5 +29,15 @@ test('portfolio supports project discovery, dialogue, navigation and reduced-mot
  click('[data-panel="about"]');assert.match(document.querySelector('#detail-title').textContent,/Jannik/);
  click('#detail-content [data-panel="contact"]');assert.match(document.querySelector('#detail-title').textContent,/something interesting/);
  click('.dialog-close');assert.equal(document.body.style.overflow,'');
+ assert.equal(document.querySelectorAll('[data-move]').length,0);
+ const bounds=scene.getBoundingClientRect();
+ const tap=()=>scene.dispatchEvent(new window.MouseEvent('click',{bubbles:true,detail:1,button:0,clientX:bounds.left+510,clientY:bounds.top+330}));
+ tap();assert.equal(dialog.open,false);assert.match(document.querySelector('#announcement').textContent,/Arrived at the selected spot/);
+ click('#motion');tap();assert.match(document.querySelector('#announcement').textContent,/Walking to the selected spot/);
+ for(let n=1;n<300;n++)nextFrame(n*16);
+ assert.equal(dialog.open,false);assert.match(document.querySelector('#announcement').textContent,/Arrived at the selected spot/);
+ scene.dispatchEvent(new window.PointerEvent('pointerdown',{bubbles:true,isPrimary:true,pointerId:1,button:0,clientX:510,clientY:330}));
+ scene.dispatchEvent(new window.PointerEvent('pointermove',{bubbles:true,isPrimary:true,pointerId:1,clientX:510,clientY:390}));
+ tap();assert.match(document.querySelector('#announcement').textContent,/Arrived at the selected spot/);
  await window.happyDOM.abort();
 });
