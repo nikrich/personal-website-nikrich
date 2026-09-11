@@ -1,0 +1,1 @@
+{"name":"jannik-playable-portfolio","private":true,"type":"module","scripts":{"dev":"node scripts/serve.mjs","build":"node scripts/build.mjs","test":"node --test tests/*.test.mjs","deploy":"npm run build && npx wrangler deploy"},"devDependencies":{"happy-dom":"^20.14.3"}}

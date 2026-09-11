@@ -1,84 +1,9 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Jannik Richter — Senior Solutions Engineer · Cape Town</title>
-  <meta name="description" content="Jannik Richter — Senior Solutions Engineer at Sanlam Fintech. Distributed systems, multi-agent orchestration, full-stack engineering, open source. Based in Cape Town."/>
-  <meta name="author" content="Jannik Richter"/>
-  <link rel="icon" type="image/svg+xml" href="assets/logo/monogram.svg"/>
-  <meta property="og:title" content="Jannik Richter — Software Architect"/>
-  <meta property="og:description" content="Distributed systems, multi-agent orchestration, full-stack engineering, open source. Cape Town."/>
-  <meta property="og:type" content="website"/>
-  <link rel="stylesheet" href="site.css"/>
-</head>
-<body data-screen-label="Jannik Richter — Personal Site" class="is-dark">
-  <div id="root"></div>
-
-  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
-
-  <script type="text/babel" src="js/Nav.jsx"></script>
-  <script type="text/babel" src="js/Hero.jsx"></script>
-  <script type="text/babel" src="js/Services.jsx"></script>
-  <script type="text/babel" src="js/FolderCTA.jsx"></script>
-  <script type="text/babel" src="js/WorkGrid.jsx"></script>
-  <script type="text/babel" src="js/About.jsx"></script>
-  <script type="text/babel" src="js/Checklist.jsx"></script>
-  <script type="text/babel" src="js/Now.jsx"></script>
-  <script type="text/babel" src="js/Channel.jsx"></script>
-  <script type="text/babel" src="js/Writing.jsx"></script>
-  <script type="text/babel" src="js/Experience.jsx"></script>
-  <script type="text/babel" src="js/Testimonials.jsx"></script>
-  <script type="text/babel" src="js/Contact.jsx"></script>
-  <script type="text/babel" src="js/Footer.jsx"></script>
-
-  <script type="text/babel">
-    function App() {
-      React.useEffect(() => {
-        if (typeof IntersectionObserver === 'undefined' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const selector = '.jr-tile, .jr-service, .jr-role, .jr-quote, .jr-post, .jr-now__item, .jr-check, .jr-services__head, .jr-work__head, .jr-about__left, .jr-about__right, .jr-checks > .jr-eyebrow, .jr-checks > h2, .jr-now__head, .jr-channel__inner, .jr-writing__head, .jr-exp__head, .jr-testi__head, .jr-contact > *, .jr-folder-cta > *, .jr-footer__meta, .jr-footer__billboard';
-        const targets = Array.from(document.querySelectorAll(selector));
-        targets.forEach((el) => {
-          el.classList.add('jr-reveal');
-          const siblings = el.parentElement ? Array.from(el.parentElement.children).filter(c => c.classList.contains('jr-reveal') || c.matches(selector)) : [];
-          const idx = Math.max(0, siblings.indexOf(el));
-          el.style.transitionDelay = (Math.min(idx, 6) * 80) + 'ms';
-        });
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              io.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-        targets.forEach(t => io.observe(t));
-        return () => io.disconnect();
-      }, []);
-
-      return (
-        <React.Fragment>
-          <Nav/>
-          <Hero/>
-          <Services/>
-          <FolderCTA/>
-          <WorkGrid/>
-          <About/>
-          <Checklist/>
-          <Now/>
-          <Channel/>
-          <Writing/>
-          <Experience/>
-          <Testimonials/>
-          <Contact/>
-          <Footer/>
-        </React.Fragment>
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-  </script>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0c131b"><title>Jannik Richter — Worlds, tools & the systems underneath</title><meta name="description" content="Explore Jannik Richter’s playable portfolio. Discover The Club at the Center of the World, native Unreal Engine plugins, and fourteen years of engineering from Cape Town."><meta property="og:title" content="Jannik Richter — A world of things I’m building"><meta property="og:description" content="A playable portfolio from Cape Town. Explore an indie game, Unreal Engine tools, and the engineer behind them."><meta property="og:type" content="website"><link rel="icon" href="assets/logo/monogram.svg" type="image/svg+xml"><link rel="stylesheet" href="world.css"><script type="module" src="js/world.js"></script></head>
+<body><a class="skip" href="#project-index">Skip to projects</a>
+<header class="topbar"><a class="identity" href="./" aria-label="Jannik Richter home"><span class="monogram">jr<span>.</span></span><span>JANNIK RICHTER<small>ENGINEER & WORLD BUILDER</small></span></a><nav aria-label="Main navigation"><a class="nav-active" href="#world">Explore</a><a href="#project-index">Projects <span>06</span></a><button data-panel="about">About me</button><button class="contact-link" data-panel="contact">Let’s talk <span>↗</span></button></nav></header>
+<main><section class="explorer" id="world" aria-label="Interactive portfolio district"><div class="intro"><p class="eyebrow"><span class="live-dot"></span> INDEPENDENT BY CURIOSITY</p><h1>A world of<br>things I’m<br><em>building.</em></h1><p class="intro-copy">Games to get lost in.<br>Tools to make your own.<br>Systems that hold it all together.</p><div class="location"><span>↗</span> MADE IN CAPE TOWN, SOUTH AFRICA</div><div class="mission"><span class="eyebrow">YOUR SIDE QUEST</span><h2>Follow your curiosity.</h2><p>Visit six places. Discover the game<br>and the tools behind the worlds.</p><div class="progress-row"><span id="quest-count">0 / 6 discovered</span><span id="quest-rank">NEW ARRIVAL</span></div><progress id="quest-progress" max="6" value="0" aria-label="Projects discovered"></progress><button id="begin" class="primary">Explore the district <span>↗</span></button></div><a class="quiet-link" href="#project-index">Just here for the projects? ↓</a></div>
+<div class="world-column"><div class="world-topline"><span><span class="live-dot"></span> THE CREATIVE DISTRICT</span><button id="motion" aria-pressed="false">Motion: on</button></div><div class="world-frame" id="world-frame"><div class="scene" id="scene" tabindex="0" role="group" aria-label="Explore the district. Use arrow keys or W A S D to walk, E to inspect the nearest beacon, or select any numbered project."><div class="map-base" aria-hidden="true"></div><canvas id="world-canvas" aria-hidden="true"></canvas><div id="beacons" aria-label="Project destinations"></div><div class="world-caption"><span>33°55′ S &nbsp; 18°25′ E</span><span>ORIGINAL AI ART · NOT GAME FOOTAGE</span></div></div><div class="arrival" id="arrival"><span class="signal-icon">✧</span><span><strong>You’re here. Make yourself at home.</strong><small>Click a beacon to walk over and discover a project.</small></span><button aria-label="Dismiss welcome" id="dismiss-arrival">×</button></div></div><div class="world-toolbar"><div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>move</span><kbd>E</kbd><span>inspect</span></div><span class="click-hint">or click a numbered beacon</span><button id="reset-position" aria-label="Return player to starting position">⌖ Recenter</button></div><div class="mobile-controls" aria-label="Touch movement controls"><button data-move="left" aria-label="Move left">←</button><button data-move="up" aria-label="Move up">↑</button><button data-move="down" aria-label="Move down">↓</button><button data-move="right" aria-label="Move right">→</button><button id="touch-inspect">Inspect ↗</button></div></div></section>
+<section class="selected" id="project-index"><div class="section-heading"><div><p class="eyebrow">FROM THIS LITTLE CORNER OF THE WORLD</p><h2>Built with intent. <em>Made to be played.</em></h2></div><span class="catalog-label">THE GAME + THE TOOLBOX / 01—06</span></div><div id="project-cards" class="project-grid"></div><noscript><div class="no-script"><h3>The game & the toolbox</h3><p>The Club at the Center of the World is my dystopian action RPG set in a divided future Cape Town. Follow development on <a href="https://www.youtube.com/@nikrich">YouTube</a>.</p><p>Explore <a href="https://conduit.unrealtools.com">Conduit</a>, <a href="https://geoscape.unrealtools.com">GeoScape</a>, <a href="https://www.unrealtools.com/ultimate-road-tool/">Ultimate Road Tool</a>, <a href="https://www.unrealtools.com/deck-toolkit/">Ultimate Deck Building Toolkit</a>, and <a href="https://www.unrealtools.com/save-compatibility-lab/">Save Compatibility Lab</a>.</p><p>I’m Jannik Richter, Senior Solutions Engineer at Sanlam Fintech in Cape Town. <a href="mailto:jannik811@gmail.com">jannik811@gmail.com</a>. Enable JavaScript to explore the district and full portfolio.</p></div></noscript></section>
+<section class="maker-strip"><img src="assets/portrait.jpg" alt="Jannik Richter" width="80" height="80" loading="lazy"><div><p class="eyebrow">THE PERSON AT THE KEYBOARD</p><h2>Hi, I’m Jannik.</h2><p>Fourteen years building software. Still following the interesting problems.</p></div><button class="outline" data-panel="about">Meet the maker <span>↗</span></button></section></main>
+<footer><span>© 2026 Jannik Richter <span class="footer-divider">/</span> Cape Town, ZA</span><div><a href="https://github.com/nikrich" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.youtube.com/@nikrich" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a href="mailto:jannik811@gmail.com">Say hello ↗</a></div><span class="footer-note">A little world. A lot of curiosity.</span></footer><dialog id="detail-dialog" aria-labelledby="detail-title"><button class="dialog-close" aria-label="Close details">×</button><div id="detail-content"></div></dialog><div id="announcement" class="sr-only" role="status" aria-live="polite"></div></body></html>

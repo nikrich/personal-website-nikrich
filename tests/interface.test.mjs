@@ -1,0 +1,33 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {Window} from 'happy-dom';
+
+test('portfolio supports project discovery, dialogue, navigation and reduced-motion travel',async()=>{
+ const window=new Window({url:'http://localhost:4173',settings:{disableCSSFileLoading:true,disableJavaScriptFileLoading:true,disableJavaScriptEvaluation:true}});
+ window.document.write(await readFile('index.html','utf8'));
+ for(const name of ['window','document','localStorage','ResizeObserver'])globalThis[name]=window[name];
+ globalThis.matchMedia=()=>({matches:true});globalThis.devicePixelRatio=1;
+ globalThis.requestAnimationFrame=()=>1;globalThis.cancelAnimationFrame=()=>{};
+ globalThis.addEventListener=window.addEventListener.bind(window);
+ const scene=document.querySelector('#scene');
+ Object.defineProperty(scene,'clientWidth',{value:850});Object.defineProperty(scene,'clientHeight',{value:586});scene.scrollIntoView=()=>{};
+ document.querySelector('canvas').getContext=()=>null;
+ const dialog=document.querySelector('dialog');
+ dialog.showModal=()=>{dialog.open=true;};dialog.close=()=>{dialog.open=false;dialog.dispatchEvent(new window.Event('close'));};
+ await import('../js/world.js');
+ const click=s=>{const el=document.querySelector(s);assert.ok(el,s);el.click();};
+ assert.equal(document.querySelectorAll('.project-card').length,6);
+ assert.equal(document.querySelectorAll('.beacon').length,6);
+ click('.project-card[data-project="club"]');assert.ok(dialog.open);assert.match(document.querySelector('#detail-title').textContent,/The Club/);
+ click('[data-choice="listen"]');assert.match(document.querySelector('#dialogue-line').textContent,/Knowledge opened a door/);
+ click('[data-choice="restart"]');assert.equal(document.querySelectorAll('[data-choice]').length,3);
+ click('.dialog-close');assert.equal(dialog.open,false);
+ for(const id of ['conduit','geoscape','road','deck','save']){click('.beacon[data-project="'+id+'"]');assert.ok(dialog.open);click('.dialog-close');}
+ assert.equal(document.querySelector('#quest-progress').value,6);assert.equal(document.querySelectorAll('.beacon.visited').length,6);
+ assert.equal(JSON.parse(localStorage.getItem('jr-district-v1')).length,6);
+ click('[data-panel="about"]');assert.match(document.querySelector('#detail-title').textContent,/Jannik/);
+ click('#detail-content [data-panel="contact"]');assert.match(document.querySelector('#detail-title').textContent,/something interesting/);
+ click('.dialog-close');assert.equal(document.body.style.overflow,'');
+ await window.happyDOM.abort();
+});
