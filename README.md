@@ -1,35 +1,25 @@
-# Jannik Richter — playable portfolio
+# Jannik Richter — Worlds, tools & other obsessions
 
-A Cape Town–inspired playable district showcasing The Club at the Center of the World and five native Unreal Engine tools. Built as a small, dependency-free static site with native JavaScript modules and Canvas 2D.
+A dark, cinematic portfolio for games, audio tools, AI and software systems. Updated October 4, 2026.
 
-## Local development
+## Development
 
-Node.js 20+ is sufficient. `npm run dev` serves http://localhost:4173. `npm test` checks world boundaries, travel, responsive coordinate projection, and local discovery state. `npm run build` validates references and stages an explicit public-file allowlist into `dist/`.
+Node.js 20+: `npm ci`, `npm run dev` (localhost:4174), `npm test`, `npm run build`. The development server rebuilds and reloads the preview on source changes. The production build bundles Three.js and the interactions with esbuild, then fingerprints the CSS and JavaScript.
 
-## Cloudflare
+Edit `index.html` for content and `portfolio.css` for layout. `js/portfolio.js` handles filters, project dialogs, the menu and motion preference. `js/scene.js` renders an original procedural WebGL sculpture. `js/choreography.js` coordinates the camera-style hero exit and pinned project transitions from scroll position. `js/section-scroll.js` advances the desktop opening and featured chapters one deliberate wheel or keyboard gesture at a time, absorbs trackpad inertia, and returns to native scrolling for longer reading sections. `js/gallery.js` creates the interactive project index with original SVG object studies.
 
-Production is **https://jannikrichter.com**, served by the existing `personal-website-nikrich` Cloudflare Pages project. It is connected to this GitHub repository: pushing `main` triggers a production deployment. Pages must use build command `npm run build` and output directory `dist`; publishing the repository root bypasses asset fingerprinting and serves the wrong release package. These settings were corrected and verified on September 11, 2026.
+Desktop project scenes pin only when the viewport is at least 900px wide and 640px high. Smaller screens use a normal vertical sequence. Reduced-motion preference and the motion toggle disable the choreography and restore all chapters. The project gallery supports pointer and keyboard focus, with descriptions associated with project links. Smaller screens show each project's illustration and copy together. All core content and outbound links remain available without JavaScript or WebGL. There are no trackers, forms or autoplaying audio/video.
 
-`npm run deploy` updates the secondary Workers mirror at `https://personal-website-nikrich.nikrich.workers.dev`; it does not itself update the custom domain. No server, database, paid plugin source, credentials, or private game assets are deployed.
+The original playable-district implementation and older JSX remain as historical source and are excluded from the production build. Their legacy engine tests remain valid. Current checks cover filters, gallery selection, unique illustration IDs, project dialogs, menu focus, motion fallback, fragments gesture boundaries, and build fingerprints. Release tests build into an isolated temporary directory so they cannot overwrite the live development preview.
 
-Only `dist/` is public. The build includes custom response headers and a real 404 page. Old JSX sections remain in source as reference material and are excluded from deployment.
+## Hosting
 
-## Editing
+Production: https://jannikrichter.com on the existing `personal-website-nikrich` Cloudflare Pages project. The repository's `main` branch triggers production deployment. Build command: `npm run build`. Output: `dist`. Only the explicit public-file allowlist in `scripts/build.mjs` is deployed.
 
-- `js/content.js`: project descriptions, links, availability, timeline, and map destinations.
-- `js/world.js`: interface, modal details, discovery state, keyboard and tap-to-move controls, and a small original dialogue vignette.
-- `js/engine.js`: pure movement, boundary, and coordinate-projection logic.
-- `world.css`: responsive design and motion preferences.
-- `index.html`: semantic shell, metadata, and no-JavaScript fallback.
+The existing `npm run deploy` command updates only the separate Workers mirror at https://personal-website-nikrich.nikrich.workers.dev. It does not update the custom domain. Preserve Pages hosting and DNS.
 
-Discoveries are saved only in the visitor’s browser under `jr-district-v1`. All content is accessible without completing the quest. Native dialogs support Escape, focus containment, and focus restoration. Reduced motion disables ambient animation and makes click travel immediate. Animation suspends when the tab is hidden. There is no analytics or form backend.
+## Content
 
-## Content and image provenance
+Featured: The Club, Hungry Ghost Audio, and Lockstep. The index contains Hive, Poltergeist, Conduit, GeoScape, Ultimate Road Tool, Deck Building Toolkit, Save Compatibility Lab, Reduced Recipes, Unreal Assets and Hungry Ghost. Unreleased work is labelled in development. Lockstep is described as fair-source, with its repository as the source for current capabilities and licensing.
 
-Personal biography, professional history, testimonials, and contact details come from the original repository’s JSX sections. Unreal plugin descriptions and release status come from the local product documentation and unrealtools.com source as of September 11, 2026. The game summary and banner come from the project README and docs/banner.png. No playable game build or private game source is included.
-
-The district backdrop is original AI-generated portfolio artwork; it is not footage of The Club. Product covers are the existing Hungry Ghost product assets. Conduit and GeoScape tiles use technical diagrams, not product screenshots. The Club dialogue vignette is original website writing inspired by the documented premise, clearly labelled in the interface.
-
-Production builds fingerprint the stylesheet and every JavaScript module, including module imports. This prevents the custom domain’s browser cache lifetime from retaining stale layouts after deployment. Mobile card media uses a consistent aspect ratio with automatic height; cards also use a minimum readable width before adding columns.
-
-Tap or click the district to move to a point. Out-of-bounds taps resolve to the nearest walkable edge. Scrolling across the map does not trigger movement. Project markers and the mobile project index still walk to a project and open its details. No directional controls are shown on phones.
+Biography and existing project descriptions come from the original repository and the user's recent work. Public links/status were checked October 4. See `ARTWORK.md` for asset provenance. No private product source or credentials are in the public build.
